@@ -22,9 +22,17 @@
                         Manage Administrators
                     </h1>  
                     <?php
-                    if (isLoggedInWebmaster())
-                        echo '<a href="Admin/addAdministrator">Add Administrator</a>'
+                    if (isLoggedInWebmaster()){
+                        echo '<a href="Admin/addAdministrator">Add Administrator</a>';
+                    }
+                    
+                    if (isset($data['msgerror'])) {
+                        echo "<br>";
+                        echo "<font color='red'>".$data['msgerror']."</font>";
+                        echo "</br>";
+                    }
                     ?>
+
                     <!-- table listing all admins -->
                     <table class="table table-bordered table table-striped table-hover bg-light">
                         <thead>
@@ -32,9 +40,13 @@
                                 <td colspan="1">
                                     ID
                                 </td>
-                                <td colspan="2">
-                                    Actions
-                                </td>
+                                <?php
+                                if (isLoggedInWebmaster()){
+                                    echo "<td colspan='2'>";
+                                            echo"Actions";
+                                        echo"</td>";
+                                    }
+                                    ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,12 +57,22 @@
                                         echo "<td>";
                                             echo($admin->admin_name);
                                         echo "</td>";
-                                        echo "<td>";
-                                            echo "<a href='/MVC/Admin/rename/$admin->admin_id'>Rename</a>";
-                                        echo "</td>";
-                                        echo "<td>";
-                                            echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Revoke</a>";
-                                        echo "</td>";
+                                        if (isLoggedInWebmaster()){
+                                            echo "<td>";
+                                                echo "<a href='/MVC/Admin/rename/$admin->admin_id'>Rename</a>";
+                                            echo "</td>";
+                                            echo "<td>";
+                                                echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Revoke</a>";
+                                            echo "</td>";
+                                        }
+                                        if ($_SESSION['admin_id'] == $admin->admin_id && !isLoggedInWebmaster()){
+                                            echo "<td>";
+                                                echo "<a href='/MVC/Admin/rename/$admin->admin_id'>Rename</a>";
+                                            echo "</td>";
+                                            echo "<td>";
+                                                echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Delete my account</a>";
+                                            echo "</td>";
+                                        }
                                     echo "</tr>";
                                 }
                             ?>

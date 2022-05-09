@@ -140,13 +140,33 @@ class Admin extends Controller
     }
 
     public function delete($admin_id){
-        $data=[
-            'admin_id' => $admin_id
+        $posts=[
+            'posts' => $this->postModel->getAdminPosts($admin_id)
         ];
-        if($this->adminModel->delete($data)){
-            logAction("ADMIN_DELETE");
-            header('Location: /MVC/Admin/tables');
+        if (sizeof($posts) == 0) {
+            $data=[
+                'admin_id' => $admin_id
+            ];
+                if($this->adminModel->delete($data)){
+                    logAction("ADMIN_DELETE");
+                    if ($admin_id == $_SESSION['admin_id']) {
+                        unset($_SESSION['user_id']);
+                        session_destroy();
+                        header('Location: /MVC/Home/home');
+                        
+                }
+            }
+        }else{
+            $data=[
+                'adminModel' => $this->adminModel,
+                'admins' => $this->adminModel->getAdmins(),
+                'posts' => $this->postModel->getPosts(),
+                'actions' => $this->logModel->getActions(),
+                'msgerror' => 'This admin had created posts, first, posts need to be deleted'
+            ];
+            $this->view('Admin/tables', $data);
         }
+            
     }
 
     public function deletePost($post_id){
@@ -189,6 +209,13 @@ class Admin extends Controller
                 header('Location: /MVC/Admin/tables');
             }
         }
+    }
+
+    public function logout(){
+        unset($_SESSION['admin_id']);
+        session_destroy();
+        // echo '<meta http-equiv="Refresh" content="0.1; url=/TermProject/Login/">';
+        $this->view('Home/home');
     }
     
     public function addAdministrator()

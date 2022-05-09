@@ -151,7 +151,7 @@
       <div class="col-md-4 col-sm-6">
         <div class="service-item">
           <div class="icon">
-          <a href="https://www.instagram.com/shortlightproductions/">
+          <a href="https://www.instagram.com/shortlightproductions/" target="_blank">
             <img src="<?php echo URLROOT; ?>/img/ig.jpg" alt="">
           </div>
           <div class="text">
