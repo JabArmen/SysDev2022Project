@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2022 at 02:25 AM
+-- Generation Time: May 08, 2022 at 11:25 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -39,6 +39,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`admin_id`, `admin_name`, `admin_pass_hash`, `admin_mail`) VALUES
+(0, 'WEBMASTER', '$2y$10$ZPcxXymHJCrLMXAY0Zs.OuQgYi5ccuzdgMMepL.tPfuVlgWzRhhNO', 'joel@fuckyou.com'),
 (1, 'armen', 'hashedpass', 'yogmail.com');
 
 -- --------------------------------------------------------
@@ -100,6 +101,22 @@ CREATE TABLE `telemetry_action` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `telemetry_action`
+--
+
+INSERT INTO `telemetry_action` (`action_id`, `action_type`, `timestamp`, `ip_address`, `admin_id`) VALUES
+(1, 'TELEMETRY_READ', 1651969594, '127.0.0.1', NULL),
+(2, 'TELEMETRY_READ', 1652044291, '127.0.0.1', NULL),
+(3, 'ADMIN_CREATE', 1652044523, '127.0.0.1', NULL),
+(4, 'ADMIN_LOGIN_FAIL', 1652044561, '127.0.0.1', NULL),
+(5, 'ADMIN_LOGIN_FAIL', 1652044583, '127.0.0.1', NULL),
+(6, 'ADMIN_CREATE', 1652044612, '127.0.0.1', NULL),
+(7, 'ADMIN_LOGIN', 1652044625, '127.0.0.1', NULL),
+(8, 'ADMIN_LOGIN', 1652044723, '127.0.0.1', NULL),
+(9, 'ADMIN_LOGIN', 1652044750, '127.0.0.1', NULL),
+(10, 'ADMIN_LOGIN', 1652044878, '127.0.0.1', NULL);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -137,7 +154,7 @@ ALTER TABLE `telemetry_action`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `form_response`
@@ -155,7 +172,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `telemetry_action`
 --
 ALTER TABLE `telemetry_action`
-  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -166,12 +183,6 @@ ALTER TABLE `telemetry_action`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `admin_ids` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`admin_id`);
-
---
--- Constraints for table `telemetry_action`
---
-ALTER TABLE `telemetry_action`
-  ADD CONSTRAINT `admin_id` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`admin_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
