@@ -22,7 +22,9 @@
                 <input type="text" placeholder="Enter Username" name="username" required>  
                 <label>Password : </label>   
                 <input type="password" placeholder="Enter Password" name="password" required>  
-            <button type="submit" id="login" name="login">Login</button>   
+            <button type="submit" id="login" name="login">Login</button> 
+            <div style="text-align: center;">
+            <input type="checkbox"> Remember me</div>   
             <div class="forgotpassword" style="text-align: center;"> Forgot <a href="<?php echo URLROOT; ?>/admin/forgot"> password? </a>   
             </div>
         </div>  

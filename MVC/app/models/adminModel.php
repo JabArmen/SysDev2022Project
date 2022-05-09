@@ -76,16 +76,4 @@
             }
 
         }
-
-        public function renameAdmin($data){
-            $this->db->query("UPDATE admins SET admin_name=:admin_name WHERE admin_id=:admin_id");
-            $this->db->bind(':admin_name', $data['admin_name']);
-            $this->db->bind(':admin_id', $data['admin_id']);
-            if($this->db->execute()){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
     }

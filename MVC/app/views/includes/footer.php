@@ -31,18 +31,9 @@
                   <li>
                       <a href="<?php echo URLROOT . "/Contact"; ?>">Contact Us</a>
                   </li>
-                  <?php
-                  if (!isLoggedIn()){
-                    echo"<li>";  
-                    echo"<a href='http://localhost/MVC/Admin/'>Administration Login</a>";
-                    echo"</li>";
-                  }
-                    if (isLoggedIn()){
-                      echo"<li>";  
-                      echo"<a href='http://localhost/MVC/Admin/logout'>Logout</a>";
-                      echo"</li>";
-                    }
-                  ?>
+                  <li>
+                      <a href="<?php echo URLROOT . "/Admin"; ?>">Administration Login</a>
+                  </li>
               </ul>
               <p>ShortLight Productions 2022</p>
           </div>

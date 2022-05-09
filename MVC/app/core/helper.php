@@ -4,16 +4,7 @@ session_start();
 
 function isLoggedIn()
 {
-  if (isset($_SESSION['admin_id'])) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function isLoggedInWebmaster()
-{
-  if (isLoggedIn() && $_SESSION['admin_id'] == 0) {
+  if (isset($_SESSION['user_id'])) {
     return true;
   } else {
     return false;
@@ -26,7 +17,7 @@ function logAction($actionName)
   $ip_addr = getIPAddress();
   $userId = null;
   if (isLoggedIn()) {
-    $userId = $_SESSION['admin_id'];
+    $userId = $_SESSION['user_id'];
   }
   $timestamp = time();
 
@@ -56,15 +47,4 @@ function getIPAddress()
   return $ip;
 }
 
-function createSession($admin)
-{
-  $_SESSION['admin_id'] = $admin->admin_id;
-  $_SESSION['admin_name'] = $admin->admin_name;
-}
-
-function logout()
-{
-  unset($_SESSION['admin_id']);
-  session_destroy();
-  echo '<meta http-equiv="Refresh" content="1; url=/MVC/Login/">';
-}
+?>

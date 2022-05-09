@@ -21,18 +21,7 @@
                     <h1>
                         Manage Administrators
                     </h1>  
-                    <?php
-                    if (isLoggedInWebmaster()){
-                        echo '<a href="Admin/addAdministrator">Add Administrator</a>';
-                    }
-                    
-                    if (isset($data['msgerror'])) {
-                        echo "<br>";
-                        echo "<font color='red'>".$data['msgerror']."</font>";
-                        echo "</br>";
-                    }
-                    ?>
-
+                    <a href="Admin/addAdministrator">Add Administrator</a>
                     <!-- table listing all admins -->
                     <table class="table table-bordered table table-striped table-hover bg-light">
                         <thead>
@@ -40,13 +29,9 @@
                                 <td colspan="1">
                                     ID
                                 </td>
-                                <?php
-                                if (isLoggedInWebmaster()){
-                                    echo "<td colspan='2'>";
-                                            echo"Actions";
-                                        echo"</td>";
-                                    }
-                                    ?>
+                                <td colspan="2">
+                                    Actions
+                                </td>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,22 +42,12 @@
                                         echo "<td>";
                                             echo($admin->admin_name);
                                         echo "</td>";
-                                        if (isLoggedInWebmaster()){
-                                            echo "<td>";
-                                                echo "<a href='/MVC/Admin/rename/$admin->admin_id'>Rename</a>";
-                                            echo "</td>";
-                                            echo "<td>";
-                                                echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Revoke</a>";
-                                            echo "</td>";
-                                        }
-                                        if ($_SESSION['admin_id'] == $admin->admin_id && !isLoggedInWebmaster()){
-                                            echo "<td>";
-                                                echo "<a href='/MVC/Admin/rename/$admin->admin_id'>Rename</a>";
-                                            echo "</td>";
-                                            echo "<td>";
-                                                echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Delete my account</a>";
-                                            echo "</td>";
-                                        }
+                                        echo "<td>";
+                                            echo "<a href='#'>Rename</a>";
+                                        echo "</td>";
+                                        echo "<td>";
+                                            echo "<a href='#'>Revoke</a>";
+                                        echo "</td>";
                                     echo "</tr>";
                                 }
                             ?>
@@ -120,10 +95,10 @@
                                             }
                                         echo "</td>";
                                         echo "<td>";
-                                            echo "<a href='/MVC/Admin/edit/$post->admin_id'>Edit</a>";
+                                            echo "<a href='#'>Edit</a>";
                                         echo "</td>";
                                         echo "<td>";
-                                            echo "<a href='/MVC/Admin/deletePost/$post->post_id'>Delete</a>";
+                                            echo "<a href='#'>Delete</a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }
