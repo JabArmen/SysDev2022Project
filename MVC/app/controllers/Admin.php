@@ -101,17 +101,16 @@ class Admin extends Controller
                 'msg' => "Access denied; please log in.",
             ];
             $this->view('Admin/login', $data);
-            return;
+        } else {   
+            logAction("TELEMETRY_READ");
+            $data = [
+                'adminModel' => $this->adminModel,
+                'admins' => $this->adminModel->getAdmins(),
+                'posts' => $this->postModel->getPosts(),
+                'actions' => $this->logModel->getActions()
+            ];
+            $this->view('Admin/tables', $data);
         }
-
-        logAction("TELEMETRY_READ");
-        $data = [
-            'adminModel' => $this->adminModel,
-            'admins' => $this->adminModel->getAdmins(),
-            'posts' => $this->postModel->getPosts(),
-            'actions' => $this->logModel->getActions()
-        ];
-        $this->view('Admin/tables', $data);
     }
 
     public function addPost()
@@ -122,24 +121,23 @@ class Admin extends Controller
                 'msg' => "Access denied; please log in.",
             ];
             $this->view('Admin/login', $data);
-            return;
-        }
-
-        if (!isset($_GET['addPost'])) {
-            $this->view('Admin/addPost');
         } else {
-            $data = [
-                'description' => trim($_POST(['description'])),
-                'post_title' => trim($_POST(['title'])),
-                'post_media_source' => trim($_POST(['mediaSource'])),
-                'admin_id' => $_SESSION['admin_id']
-            ];
-            if ($this->postModel->createPost($data)) {
-                logAction("POST_CREATE");
+            if (!isset($_GET['addPost'])) {
+               $this->view('Admin/addPost');
+            } else {
+                $data = [
+                    'description' => trim($_POST(['description'])),
+                    'post_title' => trim($_POST(['title'])),
+                    'post_media_source' => trim($_POST(['mediaSource'])),
+                    'admin_id' => $_SESSION['admin_id']
+                ];
+                if ($this->postModel->createPost($data)) {
+                    logAction("POST_CREATE");
+                }
             }
         }
     }
-
+    
     public function addAdministrator()
     {
         if (!isLoggedInWebmaster()) {
@@ -148,29 +146,30 @@ class Admin extends Controller
                 'msg' => "Access denied; please log in.",
             ];
             $this->view('Admin/login', $data);
-            return;
-        }
-
-        if (!isset($_POST['addAdmin'])) {
-            $this->view('Admin/addAdministrator');
         } else {
-            $admin = $this->adminModel->getAdminByUsername($_POST['name']);
-            if ($admin == null) {
-                $data = [
-                    'admin_name' => trim($_POST['name']),
-                    'admin_pass_hash' => password_hash($_POST['passwd'], PASSWORD_DEFAULT),
-                    'admin_mail' => trim($_POST['adminEmail'])
-                ];
-                if ($this->adminModel->createAdmin($data)) {
-                    logAction("ADMIN_CREATE");
-                    echo 'Please wait creating the account for ' . trim($_POST['name']);
-                    echo '<meta http-equiv="Refresh" content="2; url=/MVC/Login/">';
-                }
+
+            
+            if (!isset($_POST['addAdmin'])) {
+                $this->view('Admin/addAdministrator');
             } else {
-                $data = [
-                    'msg' => "Admin: " . $_POST['name'] . " already exists",
-                ];
-                $this->view('Admin/addAdministrator', $data);
+                $admin = $this->adminModel->getAdminByUsername($_POST['name']);
+                if ($admin == null) {
+                    $data = [
+                        'admin_name' => trim($_POST['name']),
+                        'admin_pass_hash' => password_hash($_POST['passwd'], PASSWORD_DEFAULT),
+                        'admin_mail' => trim($_POST['adminEmail'])
+                    ];
+                    if ($this->adminModel->createAdmin($data)) {
+                        logAction("ADMIN_CREATE");
+                        echo 'Please wait creating the account for ' . trim($_POST['name']);
+                        echo '<meta http-equiv="Refresh" content="2; url=/MVC/Login/">';
+                    }
+                } else {
+                    $data = [
+                        'msg' => "Admin: " . $_POST['name'] . " already exists",
+                    ];
+                    $this->view('Admin/addAdministrator', $data);
+                }
             }
         }
     }
