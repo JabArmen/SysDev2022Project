@@ -143,6 +143,7 @@ class Admin extends Controller
             'admin_id' => $admin_id
         ];
         if($this->adminModel->delete($data)){
+            logAction("ADMIN_DELETE");
             header('Location: /MVC/Admin/tables');
         }
     }
@@ -152,6 +153,7 @@ class Admin extends Controller
             'post_id' => $post_id
         ];
         if($this->postModel->delete($data)){
+            logAction("POST_DELETE");
             header('Location: /MVC/Admin/tables');
         }
     }
@@ -164,6 +166,7 @@ class Admin extends Controller
                 'admin_id' => $admin_id,
                 'admin_name' => trim($_POST['name'])
             ];
+            logAction("ADMIN_RENAME");
             if($this->adminModel->renameAdmin($data)){
                 header('Location: /MVC/Admin/tables');
             }
@@ -180,6 +183,7 @@ class Admin extends Controller
                 'description' => $data['editDescription'],
                 'post_media_source' => $data['editMediaSource']
             ];
+            logAction("POST_EDIT");
             if($this->postModel->updatePost($data)){
                 header('Location: /MVC/Admin/tables');
             }
