@@ -21,7 +21,10 @@
                     <h1>
                         Manage Administrators
                     </h1>  
-                    <a href="Admin/addAdministrator">Add Administrator</a>
+                    <?php
+                    if (isLoggedInWebmaster())
+                        echo '<a href="Admin/addAdministrator">Add Administrator</a>'
+                    ?>
                     <!-- table listing all admins -->
                     <table class="table table-bordered table table-striped table-hover bg-light">
                         <thead>
