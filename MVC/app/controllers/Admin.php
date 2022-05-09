@@ -137,6 +137,54 @@ class Admin extends Controller
             }
         }
     }
+
+    public function delete($admin_id){
+        $data=[
+            'admin_id' => $admin_id
+        ];
+        if($this->adminModel->delete($data)){
+            header('Location: /MVC/Admin/tables');
+        }
+    }
+
+    public function deletePost($post_id){
+        $data=[
+            'post_id' => $post_id
+        ];
+        if($this->postModel->delete($data)){
+            header('Location: /MVC/Admin/tables');
+        }
+    }
+
+    public function rename($admin_id){
+        if(!isset($_POST['rename'])){
+            $this->view('Admin/rename');
+        }else{
+            $data=[
+                'admin_id' => $admin_id,
+                'admin_name' => trim($_POST['name'])
+            ];
+            if($this->adminModel->renameAdmin($data)){
+                header('Location: /MVC/Admin/tables');
+            }
+        }
+    }
+
+    public function edit($admin_id){
+        if(!isset($_POST['editPost'])){
+            $this->view('Admin/editPost');
+        }else{
+            $data=[
+                'admin_id' => $admin_id,
+                'post_title' => $data['editTitle'],
+                'description' => $data['editDescription'],
+                'post_media_source' => $data['editMediaSource']
+            ];
+            if($this->postModel->updatePost($data)){
+                header('Location: /MVC/Admin/tables');
+            }
+        }
+    }
     
     public function addAdministrator()
     {
