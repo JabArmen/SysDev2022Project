@@ -43,10 +43,10 @@
                                             echo($admin->admin_name);
                                         echo "</td>";
                                         echo "<td>";
-                                            echo "<a href='#'>Rename</a>";
+                                            echo "<a href='/MVC/Admin/rename/$admin->admin_id'>Rename</a>";
                                         echo "</td>";
                                         echo "<td>";
-                                            echo "<a href='#'>Revoke</a>";
+                                            echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Revoke</a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }
@@ -95,10 +95,10 @@
                                             }
                                         echo "</td>";
                                         echo "<td>";
-                                            echo "<a href='#'>Edit</a>";
+                                            echo "<a href='/MVC/Admin/edit/$post->admin_id'>Edit</a>";
                                         echo "</td>";
                                         echo "<td>";
-                                            echo "<a href='#'>Delete</a>";
+                                            echo "<a href='/MVC/Admin/deletePost/$post->post_id'>Delete</a>";
                                         echo "</td>";
                                     echo "</tr>";
                                 }
