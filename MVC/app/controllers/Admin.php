@@ -126,13 +126,15 @@ class Admin extends Controller
                $this->view('Admin/addPost');
             } else {
                 $data = [
-                    'description' => trim($_POST(['description'])),
-                    'post_title' => trim($_POST(['title'])),
-                    'post_media_source' => trim($_POST(['mediaSource'])),
-                    'admin_id' => $_SESSION['admin_id']
+                    'description' => trim($_POST['description']),
+                    'post_title' => trim($_POST['title']),
+                    'post_media_source' => $_POST['mediaSource'],
+                    'admin_id' => $_SESSION['admin_id'],
                 ];
+                echo var_dump($data);
                 if ($this->postModel->createPost($data)) {
                     logAction("POST_CREATE");
+                    header('Location: /MVC/Admin/tables');
                 }
             }
         }

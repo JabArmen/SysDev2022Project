@@ -16,7 +16,7 @@
 </style>   
 </head>    
 <body>    
-    <form>  
+    <form method="post" action="">  
         <div class="container">   
             <label>Title : </label>   
             <input type="text" placeholder="Title" name="editTitle" required>  

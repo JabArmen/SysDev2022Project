@@ -16,14 +16,14 @@
 </style>   
 </head>    
 <body>    
-    <form>  
+    <form method="post" action="">   
         <div class="container">   
             <label>Title : </label>   
             <input type="text" placeholder="Title" name="title" required>  
             <label>Description : </label>   
-            <input type="password" placeholder="Description" name="description" required>  
+            <input type="text" placeholder="Description" name="description" required>  
             <label>Media source : </label>   
-            <input type="password" placeholder="Media source" name="mediaSource" required>  
+            <input type="text" placeholder="Media source" name="mediaSource" required>  
             <button type="submit" id="addPost" name="addPost">Add</button> 
         </div>   
     </form>     
