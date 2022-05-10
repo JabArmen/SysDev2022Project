@@ -1,5 +1,24 @@
 <html>
     <head>
+        <script>
+            window.onload = function() {
+                document.getElementById("msgCard").style.display = "none";
+            }
+        
+            // Wait for the page to load first
+            function changeMessage(title, sub, msg)
+            {
+                document.getElementById("msgCard").style.display = "block";
+                document.getElementById("msgTitle").innerHTML = title;
+                document.getElementById("msgSub").innerHTML = sub;
+                document.getElementById("msgContent").innerHTML = msg;
+            }
+
+            function hideMessage() {
+                document.getElementById("msgCard").style.display = "none";
+            }
+        </script>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title><?php echo SITENAME ?></title>
@@ -27,4 +46,5 @@ https://templatemo.com/tm-520-highway
         <link href="https://fonts.googleapis.com/css?family=Kanit:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
         <script src="<?php echo URLROOT; ?>/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
     </head>

@@ -1632,19 +1632,16 @@ footer span {
     top: 3px;
   }
 }
+
 #service1{
-  width: 90%;
   margin-top:50px;
   left: -15vw;
 }
 #service2{
-  width: 90%;
   left: 25vw;
-  margin-top:-300px;
+  margin-top:100px;
 }
 #service3{
-  width: 90%;
   left: -15vw;
-  margin-bottom: 5vw;
-  margin-top: -12vw;
+  margin-top: 50px;
 }

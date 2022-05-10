@@ -3,9 +3,22 @@ class Admin extends Controller
 {
     public function __construct()
     {
+        $this->formsModel = $this->model('formResponseModel');
         $this->adminModel = $this->model('adminModel');
         $this->postModel = $this->model('postsModel');
         $this->logModel = $this->model('telemetryActionModel');
+    }
+
+    function createTableData($message)
+    {
+        return [
+            'msg' => $message,
+            'adminModel' => $this->adminModel,
+            'response' => $this->formsModel->getForms(),
+            'admins' => $this->adminModel->getAdmins(),
+            'posts' => $this->postModel->getPosts(),
+            'actions' => $this->logModel->getActions()
+        ];
     }
 
     public function index()
@@ -20,13 +33,7 @@ class Admin extends Controller
                 $password = $_POST['password'];
                 if (password_verify($password, $hashed_pass)) {
                     createSession($admin);
-                    $data = [
-                        'msg' => "Welcome, $admin->admin_name!",
-                        'adminModel' => $this->adminModel,
-                        'admins' => $this->adminModel->getAdmins(),
-                        'posts' => $this->postModel->getPosts(),
-                        'actions' => $this->logModel->getActions()
-                    ];
+                    $data = $this->createTableData("Welcome, $admin->admin_name!");
                     logAction("ADMIN_LOGIN");
                     $this->view('Admin/tables', $data);
                 } else {
@@ -103,12 +110,7 @@ class Admin extends Controller
             $this->view('Admin/login', $data);
         } else {   
             logAction("TELEMETRY_READ");
-            $data = [
-                'adminModel' => $this->adminModel,
-                'admins' => $this->adminModel->getAdmins(),
-                'posts' => $this->postModel->getPosts(),
-                'actions' => $this->logModel->getActions()
-            ];
+            $data = $data = $this->createTableData("");
             $this->view('Admin/tables', $data);
         }
     }
@@ -143,11 +145,8 @@ class Admin extends Controller
         $posts=[
             'posts' => $this->postModel->getAdminPosts($admin_id)
         ];
-        $data=[
-            'adminModel' => $this->adminModel,
-            'admins' => $this->adminModel->getAdmins(),
-            'posts' => $this->postModel->getPosts(),
-            'actions' => $this->logModel->getActions(),
+        $data = $this->createTableData("");
+        $data += [
             'webmaster' => $this->postModel->getWebmaster(),
             'admin_id' => $admin_id
         ];
@@ -159,11 +158,8 @@ class Admin extends Controller
                         session_destroy();
                         header('Location: /MVC/Home/home');     
                 }else{
-                    $data=[
-                        'adminModel' => $this->adminModel,
-                        'admins' => $this->adminModel->getAdmins(),
-                        'posts' => $this->postModel->getPosts(),
-                        'actions' => $this->logModel->getActions(),
+                    $data = $this->createTableData("");
+                    $data += [
                         'webmaster' => $this->postModel->getWebmaster()
                     ];
                         $this->view('Admin/tables', $data);      
@@ -178,7 +174,8 @@ class Admin extends Controller
                     session_destroy();
                     header('Location: /MVC/Home/home');     
             }else{
-                    $this->view('Admin/tables', $data);      
+                $data = $this->createTableData("");
+                $this->view('Admin/tables', $data);      
             }
             }
         }
@@ -250,6 +247,16 @@ class Admin extends Controller
             if($successfulEdits == $filledFields){
                 header('Location: /MVC/Admin/tables');
             }
+        }
+    }
+
+    public function deleteResponse($form_id){
+        $data=[
+            'form_id' => $form_id
+        ];
+        if($this->formsModel->delete($data)){
+            logAction("RESPONSE_DELETE");
+            header('Location: /MVC/Admin/tables');
         }
     }
 

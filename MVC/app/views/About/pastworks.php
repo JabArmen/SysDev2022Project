@@ -25,42 +25,36 @@
   </div>
 
   <div class="services">
-    <div class="container" href="https://www.facebook.com/login.php">
-        <div class="col-md-4 col-sm-6">
-            <div class="service-item">
-                <div class="icon">
-                    <img src="<?php echo URLROOT; ?>/img/fb.png" alt="">
-                </div>
-                <div class="text">
-                    <h4>Facebook</h4>
-                    <p>Follow us on facebook to see all the updates!</p>
-                </div>
+    <div class="container-fluid d-flex">
+      
+      <div class="col-6">
+          <a href="https://www.instagram.com/shortlightproductions/">
+          <div class="service-item">
+            <div class="icon">
+                <img src="<?php echo URLROOT; ?>/img/ig.jpg" alt="">
             </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="service-item">
-                <a href="https://www.instagram.com/shortlightproductions/">
-                <div class="icon">
-                    <img src="<?php echo URLROOT; ?>/img/ig.jpg" alt="">
-                </div>
-                <div class="text">
-                    <h4>Instagram</h4>
-                    <p>Follow our Instagram page to view all of our clients</p>
-                </div>
-                </a>
+            <div class="text">
+              <h4>Instagram</h4>
+              <p>Follow our Instagram page to view all of our clients</p>
             </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="service-item">
-                <div class="icon">
-                    <img src="<?php echo URLROOT; ?>/img/email.png" alt="">
-                </div>
-                <div class="text">
-                    <h4>Email</h4>
-                    <p>If you have any questions, feel free to send us an email!</p>
-                </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6">
+          <a href="#">
+          <div class="service-item">
+            <div class="icon">
+                <img src="<?php echo URLROOT; ?>/img/email.png" alt="">
             </div>
-        </div>
+            <div class="text">
+                <h4>Email</h4>
+                <p>If you have any questions, feel free to send us an email!</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
     </div>
-</div>
+  </div>
 <?php require APPROOT . '/views/includes/footer.php'; ?>
