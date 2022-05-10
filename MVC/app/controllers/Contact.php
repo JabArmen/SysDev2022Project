@@ -20,7 +20,7 @@ class Contact extends Controller
                 'message' => $_POST['message']
             ];
             if($this->formModel->createForm($data)){
-                $confirmation['confirm'] = 'confirmed';
+                $confirmation = "confirmed";
                 $this->view('Contact/contact',$confirmation);
             };
         }

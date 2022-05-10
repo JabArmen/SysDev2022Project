@@ -8,7 +8,7 @@
     <div class="page-heading">
         <div class="container">
             <div class="heading-content">
-                <h1>Add <em>Post</em></h1>
+                <h1>Edit <em>Post</em></h1>
             </div>
         </div>
     </div>
@@ -16,15 +16,15 @@
 </style>   
 </head>    
 <body>    
-    <form method="post" action="">   
+    <form method="post" action="">  
         <div class="container">   
             <label>Title : </label>   
-            <input type="text" placeholder="Title" name="title" required>  
+            <input type="text" placeholder="Title" name="editTitle" required>  
             <label>Description : </label>   
-            <input type="text" placeholder="Description" name="description" required>  
+            <input type="text" placeholder="Description" name="editDescription" required>  
             <label>Media source : </label>   
-            <input type="text" placeholder="Media source" name="mediaSource" required>  
-            <button type="submit" id="addPost" name="addPost">Add</button> 
+            <input type="text" placeholder="Media source" name="editMediaSource" required>  
+            <button type="submit" id="addPost" name="editPost">Edit</button> 
         </div>   
     </form>     
 </body>     

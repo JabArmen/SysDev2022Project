@@ -183,12 +183,6 @@ ALTER TABLE `telemetry_action`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `admin_ids` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`admin_id`);
-
---
--- Constraints for table `telemetry_action`
---
-ALTER TABLE `telemetry_action`
-  ADD CONSTRAINT `admin_id` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`admin_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

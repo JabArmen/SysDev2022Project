@@ -13,6 +13,9 @@
               <p>Wedding Videos</p>
               <p>Music Videos</p> -->
               <br><br><br><br>
+                <div class="scroll-icon">
+                    <a class="scrollTo" data-scrollTo="portfolio" href="#"><img src="<?php echo URLROOT; ?>/img/scroll-icon.png" alt=""></a>
+                </div>    
             </div>
         </div>
         <video autoplay="" loop="" muted>

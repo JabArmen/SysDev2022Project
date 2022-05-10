@@ -9,6 +9,12 @@
             return $this->db->getResultSet();
         }
 
+        public function getAdminPosts($admin_id){
+            $this->db->query("SELECT * FROM posts WHERE admin_id = :admin_id");
+            $this->db->bind(':admin_id',$admin_id);
+            return $this->db->getResultSet();
+        }
+
         public function getPost($post_id){
             $this->db->query("SELECT * FROM posts WHERE post_id = :post_id");
             $this->db->bind(':post_id',$post_id);
@@ -45,6 +51,7 @@
             }
 
         }
+        
 
         public function delete($data){
             $this->db->query("DELETE FROM posts WHERE post_id=:post_id");

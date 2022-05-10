@@ -29,7 +29,7 @@
         <div class="col-md-4 col-sm-6">
             <div class="service-item">
                 <div class="icon">
-                    <img src="<?php echo URLROOT; ?>/img/facebook.png" alt="">
+                    <img src="<?php echo URLROOT; ?>/img/fb.png" alt="">
                 </div>
                 <div class="text">
                     <h4>Facebook</h4>
@@ -39,13 +39,15 @@
         </div>
         <div class="col-md-4 col-sm-6">
             <div class="service-item">
+                <a href="https://www.instagram.com/shortlightproductions/">
                 <div class="icon">
-                    <img src="<?php echo URLROOT; ?>/img/instagram.jpg" alt="">
+                    <img src="<?php echo URLROOT; ?>/img/ig.jpg" alt="">
                 </div>
                 <div class="text">
                     <h4>Instagram</h4>
                     <p>Follow our Instagram page to view all of our clients</p>
                 </div>
+                </a>
             </div>
         </div>
         <div class="col-md-4 col-sm-6">
