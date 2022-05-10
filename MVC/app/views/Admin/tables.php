@@ -23,7 +23,7 @@
                     </h1>  
                     <?php
                     if (isLoggedInWebmaster()){
-                        echo '<a href="Admin/addAdministrator">Add Administrator</a>';
+                        echo '<a href="addAdministrator">Add Administrator</a>';
                     }
                     
                     if (isset($data['msgerror'])) {
@@ -41,11 +41,11 @@
                                     ID
                                 </td>
                                 <?php
-                                if (isLoggedInWebmaster()){
+                               // if (isLoggedInWebmaster()){
                                     echo "<td colspan='2'>";
                                             echo"Actions";
                                         echo"</td>";
-                                    }
+                                  //  }
                                     ?>
                             </tr>
                         </thead>
@@ -61,9 +61,15 @@
                                             echo "<td>";
                                                 echo "<a href='/MVC/Admin/rename/$admin->admin_id'>Rename</a>";
                                             echo "</td>";
-                                            echo "<td>";
-                                                echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Revoke</a>";
-                                            echo "</td>";
+                                            if ($admin->admin_name != "WEBMASTER") {
+                                                echo "<td>";
+                                                    echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Revoke</a>";
+                                                echo "</td>";
+                                            }else{
+                                                echo "<td>";
+                                                    echo "";
+                                                echo "</td>";
+                                            }
                                         }
                                         if ($_SESSION['admin_id'] == $admin->admin_id && !isLoggedInWebmaster()){
                                             echo "<td>";
@@ -71,6 +77,13 @@
                                             echo "</td>";
                                             echo "<td>";
                                                 echo "<a href='/MVC/Admin/delete/$admin->admin_id'>Delete my account</a>";
+                                            echo "</td>";
+                                        }else if(!isLoggedInWebmaster()) {
+                                            echo "<td>";
+                                                echo "DISABLED";
+                                            echo "</td>";
+                                            echo "<td>";
+                                                echo "DISABLED";
                                             echo "</td>";
                                         }
                                     echo "</tr>";
@@ -83,7 +96,7 @@
                     <h1>
                         Manage Posts
                     </h1>  
-                    <a href="Admin/addPost">Add Post</a>
+                    <a href="addPost">Add Post</a>
                     <!-- table listing all posts -->
                     <table class="table table-bordered table table-striped table-hover bg-light">
                         <thead>
@@ -92,7 +105,7 @@
                                     Post Title
                                 </td>
                                 <td colspan="1">
-                                    Author
+                                    Created By:
                                 </td>
                                 <td colspan="2">
                                     Actions
@@ -112,7 +125,7 @@
                                             $admin = $data["adminModel"]->getAdmin($post->admin_id);
                                             if ($admin == false)
                                             {
-                                                echo "Unknown";
+                                                echo "DELETED";
                                             }
                                             else
                                             {
@@ -120,7 +133,7 @@
                                             }
                                         echo "</td>";
                                         echo "<td>";
-                                            echo "<a href='/MVC/Admin/edit/$post->admin_id'>Edit</a>";
+                                            echo "<a href='/MVC/Admin/edit/$post->post_id'>Edit</a>";
                                         echo "</td>";
                                         echo "<td>";
                                             echo "<a href='/MVC/Admin/deletePost/$post->post_id'>Delete</a>";

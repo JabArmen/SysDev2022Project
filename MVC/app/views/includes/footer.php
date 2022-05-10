@@ -39,6 +39,9 @@
                   }
                     if (isLoggedIn()){
                       echo"<li>";  
+                      echo"<a href='http://localhost/MVC/Admin/tables'>Tables Control</a>";
+                      echo"</li>";
+                      echo"<li>";  
                       echo"<a href='http://localhost/MVC/Admin/logout'>Logout</a>";
                       echo"</li>";
                     }

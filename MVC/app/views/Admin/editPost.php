@@ -19,11 +19,11 @@
     <form method="post" action="">  
         <div class="container">   
             <label>Title : </label>   
-            <input type="text" placeholder="Title" name="editTitle" required>  
+            <input type="text" placeholder="Title" name="editTitle">  
             <label>Description : </label>   
-            <input type="text" placeholder="Description" name="editDescription" required>  
+            <input type="text" placeholder="Description" name="editDescription">  
             <label>Media source : </label>   
-            <input type="text" placeholder="Media source" name="editMediaSource" required>  
+            <input type="text" placeholder="Media source" name="editMediaSource">  
             <button type="submit" id="addPost" name="editPost">Edit</button> 
         </div>   
     </form>     

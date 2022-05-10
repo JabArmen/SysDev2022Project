@@ -143,28 +143,44 @@ class Admin extends Controller
         $posts=[
             'posts' => $this->postModel->getAdminPosts($admin_id)
         ];
+        $data=[
+            'adminModel' => $this->adminModel,
+            'admins' => $this->adminModel->getAdmins(),
+            'posts' => $this->postModel->getPosts(),
+            'actions' => $this->logModel->getActions(),
+            'webmaster' => $this->postModel->getWebmaster(),
+            'admin_id' => $admin_id
+        ];
         if (sizeof($posts) == 0) {
-            $data=[
-                'admin_id' => $admin_id
-            ];
                 if($this->adminModel->delete($data)){
                     logAction("ADMIN_DELETE");
                     if ($admin_id == $_SESSION['admin_id']) {
                         unset($_SESSION['user_id']);
                         session_destroy();
-                        header('Location: /MVC/Home/home');
-                        
+                        header('Location: /MVC/Home/home');     
+                }else{
+                    $data=[
+                        'adminModel' => $this->adminModel,
+                        'admins' => $this->adminModel->getAdmins(),
+                        'posts' => $this->postModel->getPosts(),
+                        'actions' => $this->logModel->getActions(),
+                        'webmaster' => $this->postModel->getWebmaster()
+                    ];
+                        $this->view('Admin/tables', $data);      
                 }
             }
         }else{
-            $data=[
-                'adminModel' => $this->adminModel,
-                'admins' => $this->adminModel->getAdmins(),
-                'posts' => $this->postModel->getPosts(),
-                'actions' => $this->logModel->getActions(),
-                'msgerror' => 'This admin had created posts, first, posts need to be deleted'
-            ];
-            $this->view('Admin/tables', $data);
+            $this->postModel->updateAdminPosts($data);
+            if($this->adminModel->delete($data)){
+                logAction("ADMIN_DELETE");
+                if ($admin_id == $_SESSION['admin_id']) {
+                    unset($_SESSION['user_id']);
+                    session_destroy();
+                    header('Location: /MVC/Home/home');     
+            }else{
+                    $this->view('Admin/tables', $data);      
+            }
+            }
         }
             
     }
@@ -194,18 +210,44 @@ class Admin extends Controller
         }
     }
 
-    public function edit($admin_id){
+    public function edit($post_id){
         if(!isset($_POST['editPost'])){
             $this->view('Admin/editPost');
         }else{
             $data=[
-                'admin_id' => $admin_id,
-                'post_title' => $data['editTitle'],
-                'description' => $data['editDescription'],
-                'post_media_source' => $data['editMediaSource']
+                'admin_id' => $_SESSION['admin_id'],
+                'post_title' => $_POST['editTitle'],
+                'description' => $_POST['editDescription'],
+                'post_media_source' => $_POST['editMediaSource'],
+                'post_id' => $post_id
             ];
+
+            $filledFields = 0;
+            $successfulEdits = 0;
+            if (!empty(trim($data['admin_id']))) {
+                $filledFields = $filledFields + 1;
+                if ($this->postModel->updatePostAdmin($data['admin_id'])) {
+                    $successfulEdits = $successfulEdits + 1;
+                }
+            }if (!empty(trim($data['post_title']))) {
+                $filledFields = $filledFields + 1;
+                if ($this->postModel->updatePostTitle($data)) {
+                    $successfulEdits = $successfulEdits + 1;
+                }
+            }if (!empty(trim($data['description']))) {
+                $filledFields = $filledFields + 1;
+                if ($this->postModel->updatePostDescription($data)) {
+                    $successfulEdits = $successfulEdits + 1;
+                }
+            }if (!empty(trim($data['post_media_source']))) {
+                $filledFields = $filledFields + 1;
+                if ($this->postModel->updatePostMediaSource($data)) {
+                    $successfulEdits = $successfulEdits + 1;
+                }
+            }
+
             logAction("POST_EDIT");
-            if($this->postModel->updatePost($data)){
+            if($successfulEdits == $filledFields){
                 header('Location: /MVC/Admin/tables');
             }
         }
